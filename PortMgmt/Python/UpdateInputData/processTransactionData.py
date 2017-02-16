@@ -52,6 +52,14 @@ def cleanColName(col):
     return col
 
 
+def resetDatabase():
+    pass
+
+
+def updateDatabase():
+    # 
+    pass
+
 
 #===============================================================================
 # Main Script

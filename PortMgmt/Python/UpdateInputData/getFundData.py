@@ -19,6 +19,17 @@ from sys import exit
 
 from UpdateInputData.processTransactionData import cleanColName
 
+
+def resetDatabase():
+    pass
+
+
+def updateDatabase():
+    pass
+
+
+
+
 #===============================================================================
 # Main Script
 #===============================================================================
