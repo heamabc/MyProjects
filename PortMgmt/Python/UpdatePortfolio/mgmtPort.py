@@ -17,13 +17,13 @@ from numpy import datetime64
 
 SQL_PULL_HOLDING_POSITION = '''
 SELECT [TradeDate] AS [Date], [Ticker], [Transaction], [Totalshares], [SharePrice]
-FROM TransactionData.FourOhOneK
+FROM TransactionData.DFA_401K
 ORDER BY TradeDate
 '''
 
 SQL_PULL_MF_PRICE = '''
 SELECT [Date], [Ticker], [Close]
-FROM MutualFundData.DFA
+FROM MutualFundData.DFA_401K
 '''
 
 def reindex_by_date(g, dt):
@@ -73,6 +73,8 @@ def updatePort():
 #===============================================================================
 
 if __name__== "__main__":
+    
+    account_name = 'DFA_401K'
     
     ################ Pull transaction data
     params = quote_plus("DRIVER={SQL Server}; SERVER=(local); DATABASE=PortMgmt; Trusted_Connection=yes")
@@ -165,24 +167,28 @@ if __name__== "__main__":
     
     ################# Daily Table #######################
     
-    df_daily = DataFrame(index=df_pos_daily.Date.unique(), columns=['Balance', 'Contribution', 'Dividend'])
+    df_portfolio = DataFrame(index=df_pos_daily.Date.unique(), columns=['Balance', 'Contribution', 'Dividend'])
     
-    df_daily['Balance'] = df_pos_daily.groupby('Date')['Amount'].sum()
+    df_portfolio['Balance'] = df_pos_daily.groupby('Date')['Amount'].sum()
     
-    df_daily['Contribution'] = df_contrib['Amount']
-    df_daily.ix[df_daily.Contribution.isnull(), 'Contribution'] = 0
+    df_portfolio['Contribution'] = df_contrib['Amount']
+    df_portfolio.ix[df_portfolio.Contribution.isnull(), 'Contribution'] = 0
     
-    df_daily['Dividend'] = df_dividend['Amount']
-    df_daily.ix[df_daily.Dividend.isnull(), 'Dividend'] = 0
+    df_portfolio['Dividend'] = df_dividend['Amount']
+    df_portfolio.ix[df_portfolio.Dividend.isnull(), 'Dividend'] = 0
     
-    bal_less_contribution = (df_daily['Balance'] - df_daily['Contribution']).values 
-    bal_initial = df_daily.Balance.values
-    df_daily['Return'] = np.nan
-    df_daily.ix[1:, 'Return'] = bal_less_contribution[1:] / bal_initial[:-1] - 1
+    bal_less_contribution = (df_portfolio['Balance'] - df_portfolio['Contribution']).values 
+    bal_initial = df_portfolio.Balance.values
+    df_portfolio['Return'] = np.nan
+    df_portfolio.ix[1:, 'Return'] = bal_less_contribution[1:] / bal_initial[:-1] - 1
     
     
     ################ Commit to database
-     
+    df_portfolio.to_sql(account_name, engine, schema='Portfolio', if_exists='replace', index_label='Date')
+    
+    df_pos_daily.index = df_pos_daily.Date
+    df_pos_daily.drop('Date', axis=1, inplace=True)
+    df_pos_daily.to_sql(account_name, engine, schema='Position', if_exists='replace', index_label='Date')
     
     
     

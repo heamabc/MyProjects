@@ -56,9 +56,35 @@ def resetDatabase():
     pass
 
 
-def updateDatabase():
-    # 
-    pass
+def updateDatabase(account_name='DFA_401K', year_list=[2017]):
+    # update the database TranscationData.DFA_401K
+    
+    directory='Inputs\\'+account_name+'\\'
+    
+    params = quote_plus("DRIVER={SQL Server}; SERVER=(local); DATABASE=PortMgmt; Trusted_Connection=yes")
+    engine = sqlalchemy.create_engine("mssql+pyodbc:///?odbc_connect=%s" % params)
+    
+    temp = pd.read_sql('SELECT MAX(TradeDate) FROM TransactionData.'+account_name, engine)
+    if temp.notnull().iloc[0,0]:
+        start_dt = temp.iloc[0,0]
+    else:
+        start_dt = '1900/1/1'
+    
+    for y in year_list:
+        file_name = directory + str(y) + '.csv'
+        num_col = ['Transaction Amount', 'Share Price', 'Total shares']
+        date_col = ['Trade Date']
+        
+        df = getCleanData(file_name, num_col, date_col)
+        df.query('TradeDate > @start_dt', inplace=True)
+        
+        if df.shape[0] > 0:
+            df = df.groupby(['TradeDate', 'Investments', 'Ticker','Transaction','SharePrice'], as_index=False).sum()
+            
+            df.to_sql(account_name, engine, schema='TransactionData', if_exists='append', index=False, dtype=DATA_TYPE_401K)
+            print('Data uploaded:', df.TradeDate.min(), df.TradeDate.max())      
+        else:
+            print('No New Data.')
 
 
 #===============================================================================
@@ -67,31 +93,7 @@ def updateDatabase():
 
 if __name__== "__main__":
     
-    # Read csv files, clean the data and import it to sql database    
-    directory = 'Inputs\\401K\\'
-    skema_name = 'TransactionData'
-      
-    # Check
-    print('Importing: ', skema_name)
-    append_check = input('Are you sure to append the database? Type Yes or No: ')
-    if append_check != 'Yes':
-        exit()
-        
-    params = quote_plus("DRIVER={SQL Server}; SERVER=(local); DATABASE=PortMgmt; Trusted_Connection=yes")
-    engine = sqlalchemy.create_engine("mssql+pyodbc:///?odbc_connect=%s" % params)
-    
-    for y in range(2013, 2018):
-        
-        file_name = directory + str(y) + '.csv'
-        num_col = ['Transaction Amount', 'Share Price', 'Total shares']
-        date_col = ['Trade Date']
-        
-        df = getCleanData(file_name, num_col, date_col)
-        df = df.groupby(['TradeDate', 'Investments', 'Ticker','Transaction','SharePrice'], as_index=False).sum()
-
-        df.to_sql('FourOhOneK', engine, schema=skema_name, if_exists='append', index=False, dtype=DATA_TYPE_401K)
-
-        print(y, ':Data uploaded:', df.shape)        
+    pass
         
 
     

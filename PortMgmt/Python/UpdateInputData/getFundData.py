@@ -8,6 +8,7 @@ Pull Fund Data To the
 
 import pandas as pd
 from pandas import DataFrame, Series
+from pandas.tseries.offsets import DateOffset
 
 import sqlalchemy
 from urllib.parse import quote_plus
@@ -24,21 +25,20 @@ def resetDatabase():
     pass
 
 
-def updateDatabase():
-    pass
-
-
-
-
-#===============================================================================
-# Main Script
-#===============================================================================
-
-if __name__== "__main__":
+def updateDatabase(account_name='DFA_401K'):
     
-    mf_list = pd.read_excel('Inputs\Mutual_Funds.xlsx', sheet='DFA', squeeze=True, header=None).tolist()
+    mf_list = pd.read_excel('Inputs\Mutual_Funds.xlsx', sheet=account_name, squeeze=True, header=None).tolist()
     
-    panel = web.DataReader(mf_list, 'yahoo', '1980/1/1')
+    params = quote_plus("DRIVER={SQL Server}; SERVER=(local); DATABASE=PortMgmt; Trusted_Connection=yes")
+    engine = sqlalchemy.create_engine("mssql+pyodbc:///?odbc_connect=%s" % params)
+    
+    temp = pd.read_sql('SELECT MAX(Date) FROM MutualFundData.'+account_name, engine)
+    if temp.notnull().iloc[0,0]:
+        start_dt = temp.iloc[0,0]
+    else:
+        start_dt = '1980/1/1' 
+ 
+    panel = web.DataReader(mf_list, 'yahoo', start_dt)
     
     df = panel.to_frame()
     df['Date'] = df.index.get_level_values(0)
@@ -48,9 +48,24 @@ if __name__== "__main__":
     
     df.columns = cleanColName(df.columns)
     
-    params = quote_plus("DRIVER={SQL Server}; SERVER=(local); DATABASE=PortMgmt; Trusted_Connection=yes")
-    engine = sqlalchemy.create_engine("mssql+pyodbc:///?odbc_connect=%s" % params)
-    df.to_sql('DFA', engine, schema='MutualFundData', if_exists='append', index=False)
+    # convert AdjClose to Total Return
+    df['TotalDailyReturn'] = df.groupby('Ticker')['AdjClose'].pct_change().round(8)
+    df.drop('AdjClose', axis=1, inplace=True)
+    df.query('Date > @start_dt', inplace=True)
+    
+    if df.shape[0] > 0:
+        df.to_sql(account_name, engine, schema='MutualFundData', if_exists='append', index=False)
+        print('Fund Data Upload:', df.Date.min(), df.Date.max())
+
+
+
+
+#===============================================================================
+# Main Script
+#===============================================================================
+
+if __name__== "__main__":
+    pass
     
     
     
