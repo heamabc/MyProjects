@@ -77,7 +77,7 @@ if __name__== "__main__":
     account_name = 'DFA_401K'
     
     ################ Pull transaction data
-    params = quote_plus("DRIVER={SQL Server}; SERVER=(local); DATABASE=PortMgmt; Trusted_Connection=yes")
+    params = quote_plus("DRIVER={SQL Server}; SERVER=ASTJ9K2Y52RESR\SYW_LOCAL_V2014; DATABASE=PortMgmt; Trusted_Connection=yes")
     engine = sqlalchemy.create_engine("mssql+pyodbc:///?odbc_connect=%s" % params)
     
     df_transaction = pd.read_sql(SQL_PULL_HOLDING_POSITION, engine)

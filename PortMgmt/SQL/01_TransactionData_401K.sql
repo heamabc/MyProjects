@@ -32,14 +32,14 @@ CREATE TABLE TransactionData.FourOhOneK
 /*
 --Create Index
 CREATE INDEX idx_t401k
-ON TransactionData.FourOhOneK (TradeDate, Ticker);
+ON TransactionData.DFA_401K (TradeDate, Ticker);
 GO
 
 -- Show Data
 SELECT TOP 100 *
-FROM TransactionData.FourOhOneK
+FROM TransactionData.DFA_401K
 
 -- Delete data
 DELETE 
-FROM TransactionData.FourOhOneK
+FROM TransactionData.DFA_401K
 */

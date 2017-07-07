@@ -4,6 +4,9 @@ Created on Jan 27, 2017
 @author: ywang
 
 Goal: upload transcation data to database PortMgmt
+
+20170511: Switch to SYW_LOCAL_V2014 instead of local
+
 '''
 
 
@@ -53,6 +56,7 @@ def cleanColName(col):
 
 
 def resetDatabase():
+    # TBI
     pass
 
 
@@ -61,7 +65,7 @@ def updateDatabase(account_name='DFA_401K', year_list=[2017]):
     
     directory='Inputs\\'+account_name+'\\'
     
-    params = quote_plus("DRIVER={SQL Server}; SERVER=(local); DATABASE=PortMgmt; Trusted_Connection=yes")
+    params = quote_plus("DRIVER={SQL Server}; SERVER=ASTJ9K2Y52RESR\SYW_LOCAL_V2014; DATABASE=PortMgmt; Trusted_Connection=yes")
     engine = sqlalchemy.create_engine("mssql+pyodbc:///?odbc_connect=%s" % params)
     
     temp = pd.read_sql('SELECT MAX(TradeDate) FROM TransactionData.'+account_name, engine)

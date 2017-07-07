@@ -16,9 +16,15 @@ from sqlalchemy.types import VARCHAR, FLOAT, DATETIME
 
 import pandas_datareader.data as web
 
+# Get Yahoo Fix
+import fix_yahoo_finance as yf
+yf.pdr_override()
+
 from sys import exit
 
 from UpdateInputData.processTransactionData import cleanColName
+
+
 
 
 def resetDatabase():
@@ -29,7 +35,7 @@ def updateDatabase(account_name='DFA_401K'):
     
     mf_list = pd.read_excel('Inputs\Mutual_Funds.xlsx', sheet=account_name, squeeze=True, header=None).tolist()
     
-    params = quote_plus("DRIVER={SQL Server}; SERVER=(local); DATABASE=PortMgmt; Trusted_Connection=yes")
+    params = quote_plus("DRIVER={SQL Server}; SERVER=ASTJ9K2Y52RESR\SYW_LOCAL_V2014; DATABASE=PortMgmt; Trusted_Connection=yes")
     engine = sqlalchemy.create_engine("mssql+pyodbc:///?odbc_connect=%s" % params)
     
     temp = pd.read_sql('SELECT MAX(Date) FROM MutualFundData.'+account_name, engine)
@@ -38,7 +44,7 @@ def updateDatabase(account_name='DFA_401K'):
     else:
         start_dt = '1980/1/1' 
  
-    panel = web.DataReader(mf_list, 'yahoo', start_dt)
+    panel = web.get_data_yahoo(mf_list, start_dt)
     
     df = panel.to_frame()
     df['Date'] = df.index.get_level_values(0)

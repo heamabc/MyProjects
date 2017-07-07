@@ -16,12 +16,16 @@ import xlwings as xw
 import matplotlib.pyplot as plt
 from matplotlib.finance import quotes_historical_yahoo_ohlc, candlestick_ohlc
 
+import fix_yahoo_finance as yf
+yf.pdr_override()
+
 @xw.func
 def myplot(ticker, weeks):
     # Get hist prices
     start = datetime.date.today() + datetime.timedelta(days=-weeks*7)
 
-    data = web.DataReader(ticker, 'yahoo', start)
+    # data = web.DataReader(ticker, 'yahoo', start)
+    data = web.get_data_yahoo(ticker, start)
     
     # try 1
     # ax = data['Close'].plot(title=ticker)
@@ -74,9 +78,11 @@ def updateSheet(sht, flag='LiveQuote'):
     quote = pd.DataFrame()
     k = 0
     while df.index.shape[0] > (k+1)*1000:
-        quote = quote.append(web.get_quote_yahoo(df.index[k*1000:(k+1)*1000]))
+        # quote = quote.append(web.get_quote_yahoo(df.index[k*1000:(k+1)*1000]))
+        quote = quote.append(web.get_quote_google(df.index[k*1000:(k+1)*1000]))
         k += 1
-    quote = quote.append(web.get_quote_yahoo(df.index[k*1000:]))
+    # quote = quote.append(web.get_quote_yahoo(df.index[k*1000:]))
+    quote = quote.append(web.get_quote_google(df.index[k*1000:]))
     quote.replace('N/A', np.nan, inplace=True)
     
     df['LastPrice'] = quote['last']
@@ -84,13 +90,16 @@ def updateSheet(sht, flag='LiveQuote'):
 
     # Gest dist to target price
     df['DistToTarget'] = df['LastPrice'] / df['TargetPrice'] - 1
-    df.ix[df.DistToTarget.isnull(), 'DistToTarget'] = 'N/A'
+    df.loc[df.DistToTarget.isnull(), 'DistToTarget'] = 'N/A'
     
     if flag == 'Hist':
         # Get hist prices
         start = datetime.date.today() + datetime.timedelta(days=-52*7)
         
-        data = web.DataReader(df.index, 'yahoo', start)
+        # yahoo API is not working
+        # data = web.DataReader(df.index, 'yahoo', start)
+        # data = web.DataReader(df.index, 'google', start)
+        data = web.get_data_yahoo(df.index.tolist(), start)
         
         # get previous close
         df['PrevClose'] = data.ix['Close', -1, :]
