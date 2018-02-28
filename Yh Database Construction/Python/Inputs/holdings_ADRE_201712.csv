@@ -1,0 +1,51 @@
+FundTicker,SecurityNum,HoldingsTicker,Shares,MarketValue,Weight,Name,Sector,Date
+ADRE,47215P106,JD ,"104,136","4,547,619.12",2.673,JD.com Inc ADR,Consumer Discretionary,01/04/2018
+ADRE,22943F100,CTRP ,"54,140","2,501,809.4",1.47,Ctrip.com International Ltd ADR,Consumer Discretionary,01/04/2018
+ADRE,874080104,TAL ,"38,467","1,252,870.19",0.736,TAL Education Group ADR,Consumer Discretionary,01/04/2018
+ADRE,40049J206,TV ,"58,753","1,125,707.48",0.662,Grupo Televisa SAB ADR,Consumer Discretionary,01/04/2018
+ADRE,876568502,TTM ,"27,137","914,245.53",0.537,Tata Motors Ltd ADR,Consumer Discretionary,01/04/2018
+ADRE,02319V103,ABEV ,"590,924","3,923,735.36",2.306,Ambev SA ADR,Consumer Staples,01/04/2018
+ADRE,344419106,FMX ,"29,019","2,759,706.9",1.622,Fomento Economico Mexicano SAB de CV ADR,Consumer Staples,01/04/2018
+ADRE,10552T107,BRFS ,"84,001","970,211.55",0.57,BRF SA ADR,Consumer Staples,01/04/2018
+ADRE,126132109,CEO ,"21,581","3,324,337.24",1.954,CNOOC Ltd ADR,Energy,01/04/2018
+ADRE,71654V101,PBR/A ,"282,075","2,933,580",1.724,Petroleo Brasileiro SA ADR,Energy,01/04/2018
+ADRE,16941R108,SNP ,"34,257","2,702,877.3",1.589,China Petroleum & Chemical Corp ADR,Energy,01/04/2018
+ADRE,71654V408,PBR ,"199,863","2,198,493",1.292,Petroleo Brasileiro SA ADR,Energy,01/04/2018
+ADRE,71646E100,PTR ,"28,330","2,122,483.6",1.247,PetroChina Co Ltd ADR,Energy,01/04/2018
+ADRE,90400P101,UGP ,"58,274","1,396,245.04",0.821,Ultrapar Participacoes SA ADR,Energy,01/04/2018
+ADRE,465562106,ITUB ,"433,775","6,020,797",3.539,Itau Unibanco Holding SA ADR,Financials,01/04/2018
+ADRE,40415F101,HDB ,"56,476","5,710,853.12",3.357,HDFC Bank Ltd ADR,Financials,01/04/2018
+ADRE,059460303,BBD ,"410,133","4,445,841.72",2.613,Banco Bradesco SA ADR,Financials,01/04/2018
+ADRE,48241A105,KB ,"53,335","3,171,832.45",1.864,KB Financial Group Inc ADR,Financials,01/04/2018
+ADRE,16939P106,LFC ,"199,830","3,163,308.9",1.859,China Life Insurance Co Ltd ADR,Financials,01/04/2018
+ADRE,824596100,SHG ,"63,672","2,988,126.96",1.756,Shinhan Financial Group Co Ltd ADR,Financials,01/04/2018
+ADRE,45104G104,IBN ,"211,018","2,072,196.76",1.218,ICICI Bank Ltd ADR,Financials,01/04/2018
+ADRE,98105T104,WF ,"24,507","1,096,198.11",0.644,Woori Bank ADR,Financials,01/04/2018
+ADRE,51817R106,LTM ,"51,297","741,754.62",0.436,Latam Airlines Group SA ADR,Industrials,01/04/2018
+ADRE,01609W102,BABA ,"154,752","28,738,993.92",16.891,Alibaba Group Holding Ltd ADR,Information Technology,01/04/2018
+ADRE,874039100,TSM ,"501,370","20,801,841.3",12.226,Taiwan Semiconductor Manufacturing Co Ltd ADR,Information Technology,01/04/2018
+ADRE,056752108,BIDU ,"36,824","9,048,761.52",5.318,Baidu Inc ADR,Information Technology,01/04/2018
+ADRE,456788108,INFY ,"268,325","4,306,616.25",2.531,Infosys Ltd ADR,Information Technology,01/04/2018
+ADRE,64110W102,NTES ,"9,933","3,377,319.33",1.985,NetEase Inc ADR,Information Technology,01/04/2018
+ADRE,00756M404,ASX ,"189,779","1,269,621.51",0.746,Advanced Semiconductor Engineering Inc ADR,Information Technology,01/04/2018
+ADRE,31680Q104,WUBA ,"12,171","949,338",0.558,58.com Inc ADR,Information Technology,01/04/2018
+ADRE,97651M109,WIT ,"156,824","886,055.6",0.521,Wipro Ltd ADR,Information Technology,01/04/2018
+ADRE,50186V102,LPL ,"59,575","851,326.75",0.5,LG Display Co Ltd ADR,Information Technology,01/04/2018
+ADRE,948596101,WB ,"6,744","783,720.24",0.461,Weibo Corp ADR,Information Technology,01/04/2018
+ADRE,910873405,UMC ,"318,678","777,574.32",0.457,United Microelectronics Corp ADR,Information Technology,01/04/2018
+ADRE,91912E105,VALE ,"468,309","6,008,404.47",3.531,Vale SA ADR,Materials,01/04/2018
+ADRE,693483109,PKX ,"43,081","3,720,475.16",2.187,POSCO ADR,Materials,01/04/2018
+ADRE,803866300,SSL ,"79,519","2,743,405.5",1.612,Sasol Ltd ADR,Materials,01/04/2018
+ADRE,151290889,CX ,"195,569","1,554,773.55",0.914,Cemex SAB de CV ADR,Materials,01/04/2018
+ADRE,92242Y100,VEDL ,"56,151","1,211,738.58",0.712,Vedanta Ltd ADR,Materials,01/04/2018
+ADRE,16941M109,CHL ,"148,462","7,434,976.96",4.37,China Mobile Ltd ADR,Telecommunication Services,01/04/2018
+ADRE,02364W105,AMX ,"156,628","2,703,399.28",1.589,America Movil SAB de CV ADR,Telecommunication Services,01/04/2018
+ADRE,715684106,TLK ,"66,320","2,063,215.2",1.213,Telekomunikasi Indonesia Persero Tbk PT ADR,Telecommunication Services,01/04/2018
+ADRE,17133Q502,CHT ,"51,039","1,847,611.8",1.086,Chunghwa Telecom Co Ltd ADR,Telecommunication Services,01/04/2018
+ADRE,78440P108,SKM ,"47,813","1,303,382.38",0.766,SK Telecom Co Ltd ADR,Telecommunication Services,01/04/2018
+ADRE,16945R104,CHU ,"82,135","1,143,319.2",0.672,China Unicom Hong Kong Ltd ADR,Telecommunication Services,01/04/2018
+ADRE,169426103,CHA ,"18,634","896,295.4",0.527,China Telecom Corp Ltd ADR,Telecommunication Services,01/04/2018
+ADRE,87936R106,VIV ,"55,610","851,389.1",0.5,Telefonica Brasil SA ADR,Telecommunication Services,01/04/2018
+ADRE,607409109,MBT ,"68,424","726,662.88",0.427,Mobile TeleSystems PJSC ADR,Telecommunication Services,01/04/2018
+ADRE,500631106,KEP ,"68,958","1,213,660.8",0.713,Korea Electric Power Corp ADR,Utilities,01/04/2018
+ADRE,29274F104,ENIA ,"75,600","840,672",0.494,Enel Americas SA ADR,Utilities,01/04/2018
